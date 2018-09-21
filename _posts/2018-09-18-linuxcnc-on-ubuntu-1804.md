@@ -11,11 +11,11 @@ of LinuxCNC is shipping with.
 
 So let's set up LinuxCNC on a fresh Ubuntu 18.04 install.
 
-# Install Ubuntu 18.04
+## Install Ubuntu 18.04
 Head over to [Canonical's website](https://www.ubuntu.com/download/desktop) and download Ubuntu. Create a bootable USB with
 [Etcher](https://etcher.io/), and follow the installation procedure.
 
-# Compile and install the real time kernel
+## Compile and install the real time kernel
 First we'll need to patch the kernel for realtime usage. Visit [https://www.kernel.org/](https://www.kernel.org/) and find the latest available stable kernel version number _version.major.minor_.
 At the time of writing this post it was __4.18.8__.
 
@@ -64,7 +64,7 @@ Reboot and select the new kernel when reaching Grub's screen.
 reboot
 ```
 
-# Download and compile LinuxCNC
+## Download and compile LinuxCNC
 Clone LinuxCNC git repository, install dependencies and compile:
 ```bash
 git clone git://github.com/linuxcnc/linuxcnc.git linuxcnc-dev
@@ -87,18 +87,66 @@ source ../scripts/rip-environment
 runtests
 ```
 
-# Test system latency
-Run the latency test and make sure you get reasonable values:
+## Test system latency
+
+# Benchmark 1 - LinuxCNC latency test
+Run the latency test and make sure you get reasonable values, if not typically below 10us worst case latency,
+read below for possible improvements.
 ```bash
-latency-test # For worst case values
+latency-test # For worst case values (which is what we ultimately care about)
 latency-plot # For a plot over time of the latency
+latency-histogram # To plot a distribution of latencies
+
+# Will run a Mesa 7i76e card, will only use the servo thread at 1kHz
+latency-test 1ms 1ms
+latency-histogram --nobase
 ```
 
-Look into SMI issues: [http://wiki.linuxcnc.org/cgi-bin/wiki.pl?FixingSMIIssues#Alternate_Approach_smictrl](http://wiki.linuxcnc.org/cgi-bin/wiki.pl?FixingSMIIssues#Alternate_Approach_smictrl)
+# Benchmark 2 - cyclictest and stress-ng
+Install cyclictest and stress-ng:
+```bash
+sudo apt install stress-ng rt-tests
+```
 
-# References
+First benchmark: you want to look at the **Max** value printed by cyclictest, which is the worst case latency in nanoseconds.
+```bash
+# Terminal 1
+cyclictest --mlockall --smp --priority=80 --interval=200 --distance=0 --nsecs
+# Terminal 2
+stress-ng --cpu 4 --io 2 --vm 2 --vm-bytes 128M --fork 4 --timeout 10s
+```
+
+# BIOS options
+Disable any options related to power management, hyper threading, C states...
+
+# SMI
+Clone smictrl repository:
+```bash
+git clone https://github.com/zultron/smictrl.git
+```
+
+You will probably need to modify the Makefile to make it work (the implicit rule for building a program has a different order
+for the linker flags):
+```
+CC = gcc
+smictrl: smictrl.c
+	$(CC) $(CFLAGS) smictrl.c -o smictrl $(LDFLAGS)
+```
+
+List and disable SMI flags:
+```bash
+sudo ./smictrl -v
+sudo ./smictrl -c 0x0 # try to clear all
+sudo ./smictrl -g -s 0x0 # try to clear all
+```
+
+## References
 [https://www.osadl.org/latest-stable-quick-rt-preempt-kerne.realtime-kernel-installation.0.html](https://www.osadl.org/latest-stable-quick-rt-preempt-kerne.realtime-kernel-installation.0.html)
 [https://www.osadl.org/Realtime-Preempt-Kernel.kernel-rt.0.html](https://www.osadl.org/Realtime-Preempt-Kernel.kernel-rt.0.html)
 [https://github.com/LinuxCNC/linuxcnc](https://github.com/LinuxCNC/linuxcnc)
 [http://linuxcnc.org/docs/devel/html/code/building-linuxcnc.html](http://linuxcnc.org/docs/devel/html/code/building-linuxcnc.html)
 [https://forum.linuxcnc.org/38-general-linuxcnc-questions/33492-unexpected-realtime-delay-on-task-0](https://forum.linuxcnc.org/38-general-linuxcnc-questions/33492-unexpected-realtime-delay-on-task-0)
+[https://rt.wiki.kernel.org/index.php/HOWTO:_Build_an_RT-application](https://rt.wiki.kernel.org/index.php/HOWTO:_Build_an_RT-application)
+[http://linuxrealtime.org/index.php/Improving_the_Real-Time_Properties](http://linuxrealtime.org/index.php/Improving_the_Real-Time_Properties)
+[https://wiki.linuxfoundation.org/realtime/documentation/howto/tools/cyclictest/start](https://wiki.linuxfoundation.org/realtime/documentation/howto/tools/cyclictest/start)
+[http://people.seas.harvard.edu/~apw/stress/](http://people.seas.harvard.edu/~apw/stress/)

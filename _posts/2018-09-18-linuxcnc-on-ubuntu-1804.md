@@ -11,11 +11,11 @@ of LinuxCNC is shipping with.
 
 So let's set up LinuxCNC on a fresh Ubuntu 18.04 install.
 
-## Install Ubuntu 18.04
+# Install Ubuntu 18.04
 Head over to [Canonical's website](https://www.ubuntu.com/download/desktop) and download Ubuntu. Create a bootable USB with
 [Etcher](https://etcher.io/), and follow the installation procedure.
 
-## Compile and install the real time kernel
+# Compile and install the real time kernel
 First we'll need to patch the kernel for realtime usage. Visit [https://www.kernel.org/](https://www.kernel.org/) and find the latest available stable kernel version number _version.major.minor_.
 At the time of writing this post it was __4.18.8__.
 
@@ -64,7 +64,7 @@ Reboot and select the new kernel when reaching Grub's screen.
 reboot
 ```
 
-## Download and compile LinuxCNC
+# Download and compile LinuxCNC
 Clone LinuxCNC git repository, install dependencies and compile:
 ```bash
 git clone git://github.com/linuxcnc/linuxcnc.git linuxcnc-dev
@@ -87,9 +87,9 @@ source ../scripts/rip-environment
 runtests
 ```
 
-## Test system latency
+# Test system latency
 
-# Benchmark 1 - LinuxCNC latency test
+## Benchmark 1 - LinuxCNC latency test
 Run the latency test and make sure you get reasonable values, if not typically below 10us worst case latency,
 read below for possible improvements.
 ```bash
@@ -102,7 +102,7 @@ latency-test 1ms 1ms
 latency-histogram --nobase
 ```
 
-# Benchmark 2 - cyclictest and stress-ng
+## Benchmark 2 - cyclictest and stress-ng
 Install cyclictest and stress-ng:
 ```bash
 sudo apt install stress-ng rt-tests
@@ -116,10 +116,10 @@ cyclictest --mlockall --smp --priority=80 --interval=200 --distance=0 --nsecs
 stress-ng --cpu 4 --io 2 --vm 2 --vm-bytes 128M --fork 4 --timeout 10s
 ```
 
-# BIOS options
+## BIOS options
 Disable any options related to power management, hyper threading, C states...
 
-# SMI
+## SMI
 Clone smictrl repository:
 ```bash
 git clone https://github.com/zultron/smictrl.git
@@ -140,13 +140,13 @@ sudo ./smictrl -c 0x0 # try to clear all
 sudo ./smictrl -g -s 0x0 # try to clear all
 ```
 
-## References
-[https://www.osadl.org/latest-stable-quick-rt-preempt-kerne.realtime-kernel-installation.0.html](https://www.osadl.org/latest-stable-quick-rt-preempt-kerne.realtime-kernel-installation.0.html)
-[https://www.osadl.org/Realtime-Preempt-Kernel.kernel-rt.0.html](https://www.osadl.org/Realtime-Preempt-Kernel.kernel-rt.0.html)
-[https://github.com/LinuxCNC/linuxcnc](https://github.com/LinuxCNC/linuxcnc)
-[http://linuxcnc.org/docs/devel/html/code/building-linuxcnc.html](http://linuxcnc.org/docs/devel/html/code/building-linuxcnc.html)
-[https://forum.linuxcnc.org/38-general-linuxcnc-questions/33492-unexpected-realtime-delay-on-task-0](https://forum.linuxcnc.org/38-general-linuxcnc-questions/33492-unexpected-realtime-delay-on-task-0)
-[https://rt.wiki.kernel.org/index.php/HOWTO:_Build_an_RT-application](https://rt.wiki.kernel.org/index.php/HOWTO:_Build_an_RT-application)
-[http://linuxrealtime.org/index.php/Improving_the_Real-Time_Properties](http://linuxrealtime.org/index.php/Improving_the_Real-Time_Properties)
-[https://wiki.linuxfoundation.org/realtime/documentation/howto/tools/cyclictest/start](https://wiki.linuxfoundation.org/realtime/documentation/howto/tools/cyclictest/start)
-[http://people.seas.harvard.edu/~apw/stress/](http://people.seas.harvard.edu/~apw/stress/)
+# References
+1. [https://www.osadl.org/latest-stable-quick-rt-preempt-kerne.realtime-kernel-installation.0.html](https://www.osadl.org/latest-stable-quick-rt-preempt-kerne.realtime-kernel-installation.0.html)
+1. [https://www.osadl.org/Realtime-Preempt-Kernel.kernel-rt.0.html](https://www.osadl.org/Realtime-Preempt-Kernel.kernel-rt.0.html)
+1. [https://github.com/LinuxCNC/linuxcnc](https://github.com/LinuxCNC/linuxcnc)
+1. [http://linuxcnc.org/docs/devel/html/code/building-linuxcnc.html](http://linuxcnc.org/docs/devel/html/code/building-linuxcnc.html)
+1. [https://forum.linuxcnc.org/38-general-linuxcnc-questions/33492-unexpected-realtime-delay-on-task-0](https://forum.linuxcnc.org/38-general-linuxcnc-questions/33492-unexpected-realtime-delay-on-task-0)
+1. [https://rt.wiki.kernel.org/index.php/HOWTO:_Build_an_RT-application](https://rt.wiki.kernel.org/index.php/HOWTO:_Build_an_RT-application)
+1. [http://linuxrealtime.org/index.php/Improving_the_Real-Time_Properties](http://linuxrealtime.org/index.php/Improving_the_Real-Time_Properties)
+1. [https://wiki.linuxfoundation.org/realtime/documentation/howto/tools/cyclictest/start](https://wiki.linuxfoundation.org/realtime/documentation/howto/tools/cyclictest/start)
+1. [http://people.seas.harvard.edu/~apw/stress/](http://people.seas.harvard.edu/~apw/stress/)

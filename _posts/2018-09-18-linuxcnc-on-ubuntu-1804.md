@@ -149,7 +149,7 @@ smictrl: smictrl.c
 List and disable SMI flags:
 ```bash
 sudo ./smictrl -v
-sudo ./smictrl -c 0x0 # try to clear all
+sudo ./smictrl -s 0x0 # try to clear all
 sudo ./smictrl -g -s 0x0 # try to clear all
 ```
 

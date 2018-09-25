@@ -136,6 +136,7 @@ Disable any options related to power management, hyper threading, C states...
 Clone smictrl repository:
 ```bash
 git clone https://github.com/zultron/smictrl.git
+sudo apt install libpci-dev
 ```
 
 You will probably need to modify the Makefile to make it work (the implicit rule for building a program has a different order

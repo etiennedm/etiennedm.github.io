@@ -15,6 +15,17 @@ So let's set up LinuxCNC on a fresh Ubuntu 18.04 install.
 Head over to [Canonical's website](https://www.ubuntu.com/download/desktop) and download Ubuntu. Create a bootable USB with
 [Etcher](https://etcher.io/), and follow the installation procedure.
 
+Don't forget to install the SSH server if you plan on accessing your machine remotely:
+```bash
+sudo apt install openssh-server
+```
+
+Install the tools necessary to build software on your machine:
+```bash
+sudo apt install build-essential
+sudo apt install git vim
+```
+
 ## Compile and install the real time kernel
 First we'll need to patch the kernel for realtime usage. Visit [https://www.kernel.org/](https://www.kernel.org/) and find the latest available stable kernel version number _version.major.minor_.
 At the time of writing this post it was __4.18.8__.

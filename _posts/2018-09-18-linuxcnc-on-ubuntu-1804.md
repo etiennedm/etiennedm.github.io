@@ -55,13 +55,15 @@ Now that we have the kernel source properly patched, it's time to build it! Enab
 up, decide whether to include them or not.
 ```bash
 cp /boot/config-`uname -r` .config
+sudo apt install libncurses-dev bison flex
 make menuconfig
 ```
-Make sure that the **Preemption Model** is set to _Fully Preemptible Kernel (RT)_, and disable debugging features in **Kernel Hacking**,
+Make sure that the **Processor type and feature -> Preemption Model** is set to _Fully Preemptible Kernel (RT)_, and disable debugging features in **Kernel Hacking**,
 especially _Check for stack overflows_ in **Memory Debugging**.
 
 You can now build the kernel and install it.
 ```bash
+sudo apt install libefl-dev libssl-dev
 # Compile
 make -j 4 # Adjust based on the number of cores in your CPU
 # Install kernel

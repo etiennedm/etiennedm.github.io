@@ -87,13 +87,13 @@ Then run `sudo update-grub`.
 Clone LinuxCNC git repository, install dependencies and compile:
 ```bash
 git clone git://github.com/linuxcnc/linuxcnc.git linuxcnc-dev
+# Install missing dependencies, YMMV, use apt search
+sudo apt install autoconf pkg-config libudev-dev libmodbus-dev libusb-1.0-0-dev gtk2.0 yapps2 intltool
+sudo apt install tcl-dev tk-dev bwidget libtk-img tclx python-gtk2 libreadline-gplv2-dev
+sudo apt install python-tk libboost-python-dev mesa-common-dev libglu1-mesa-dev libxmu-dev python-glade2
+# Compile
 cd linuxcnc-dev/src
 ./autogen.sh
-# Install missing dependencies, YMMV, use apt search
-sudo apt install pkg-config libudev-dev libmodbus-dev libusb-1.0-0-dev gtk2.0 yapps2 intltool
-sudo apt install tcl-dev tk-dev bwidget libtk-img tclx python-gtk2 libreadline-gplv2-dev
-sudo apt install python-tk libboost-python-dev mesa-common-dev libglu1-mesa-dev libxmu-dev
-# Compile
 ./configure --with-realtime=uspace
 make -j4
 # Fix permissions

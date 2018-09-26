@@ -77,6 +77,12 @@ Reboot and select the new kernel when reaching Grub's screen.
 reboot
 ```
 
+If you don't see a Grub prompt, add or modify the following to `/etc/default/grub` (you'll need to sudo it):
+```bash
+GRUB_TIMEOUT_STYLE=menu
+```
+Then run `sudo update-grub`.
+
 ## Download and compile LinuxCNC
 Clone LinuxCNC git repository, install dependencies and compile:
 ```bash

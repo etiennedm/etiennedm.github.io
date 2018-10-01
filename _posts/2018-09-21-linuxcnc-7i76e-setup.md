@@ -27,7 +27,22 @@ Download support software for the Mesa board (e.g. [here](http://www.mesanet.com
 Launch `pncconf` and follow the instructions to configure your board, everything is quite self explanatory (don't forget
 to power the Mesa board when trying to test your setup).
 
-Crash libc-2.27.so?
+## MPG Wheel
+You can have up to 2 MPGs connected by enabling the smart serial port:
+```
+sserial_port_0=2xxxx
+```
+Then wire the MPG A & B inputs to the 7i76e 16 and 17 inputs (18 and 19 for the second MPG). Wire 5V and GND from a stepper
+output for instance.
+
+Next add the following to `custom.hal` in your configuration folder:
+```
+setp axis.x.jog-vel-mode 0
+setp axis.x.jog-enable TRUE
+setp axis.x.jog-scale 1
+net x-jog-counter <= hm2_7i76e.0.7i76.0.0.enc0.count
+net x-jog-counter => axis.x.jog-counts
+```
 
 ## References
 

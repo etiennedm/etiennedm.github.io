@@ -21,6 +21,24 @@ Following [this wiring guide](https://forum.linuxcnc.org/media/kunena/attachment
 3. Wire power (e.g. 24V) to the stepper driver
 4. Wire the motor to its driver
 
+## Ethernet configuration
+Pick a static IP address (), by adding the following to `/etc/networking/interfaces`:
+```
+auto YOUR_INTERFACE_NAME
+iface YOUR_INTERFACE_NAME inet static
+address 192.168.1.122
+netmask 255.255.255.0
+```
+
+Run the following command (ping before and after to see the difference), which sets the number of microseconds to delay
+an RX interrupt to 0:
+```
+sudo ethtool -C YOUR_INTERFACE_NAME rx-usecs 0
+```
+
+If you use a Wifi connection on the same computer, make sure your address spaces do not clash. You can change the jumpers on the
+7i76e so that it has its IP address set to 10.10.10.10 (W2 down, W3 up).
+
 ## LinuxCNC configuration
 Download support software for the Mesa board (e.g. [here](http://www.mesanet.com/software/parallel/7i80.zip) for the 7i76e), and copy the hostmot2 drivers in `/lib/firmware/hm2`.
 

@@ -46,11 +46,12 @@ Launch `pncconf` and follow the instructions to configure your board, everything
 to power the Mesa board when trying to test your setup).
 
 ## MPG Wheel
-You can have up to 2 MPGs connected by enabling the smart serial port:
+You can have up to 2 MPGs connected to pins 16/17 and 18/19 by enabling software mode 2 for the 7i76e in your CONFIG_NAME.hal file
+(see [https://forum.linuxcnc.org/media/kunena/attachments/3278/7i76_Anschluss.pdf](https://forum.linuxcnc.org/media/kunena/attachments/3278/7i76_Anschluss.pdf)):
 ```
-sserial_port_0=2xxxx
+sserial_port_0=2xxxxxxx
 ```
-Then wire the MPG A & B inputs to the 7i76e 16 and 17 inputs (18 and 19 for the second MPG). Wire 5V and GND from a stepper
+Then wire the MPG A & B inputs to inputs 16 and 17 on the 7i76e (18 and 19 for the second MPG). Wire 5V and GND from a stepper
 output for instance.
 
 Next add the following to `custom.hal` in your configuration folder:

@@ -56,11 +56,11 @@ output for instance.
 
 Next add the following to `custom.hal` in your configuration folder:
 ```
-setp axis.x.jog-vel-mode 0
-setp axis.x.jog-enable TRUE
-setp axis.x.jog-scale 1
+setp joint.0.jog-vel-mode 0
+setp joint.0.jog-enable TRUE
+setp joint.0.jog-scale 1
 net x-jog-counter <= hm2_7i76e.0.7i76.0.0.enc0.count
-net x-jog-counter => axis.x.jog-counts
+net x-jog-counter => joint.0.jog-counts
 ```
 
 ## References

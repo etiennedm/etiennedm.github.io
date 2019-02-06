@@ -102,7 +102,7 @@ sudo make setuid
 
 Run LinuxCNC tests:
 ```bash
-source ../scripts/rip-environment
+source ../scripts/rip-environment # For some reason this will not work in zsh, use a bash shell instead
 runtests
 ```
 
@@ -158,6 +158,12 @@ List and disable SMI flags:
 sudo ./smictrl -v
 sudo ./smictrl -s 0x0 # try to clear all
 sudo ./smictrl -g -s 0x0 # try to clear all
+```
+
+## Test that you can run AXIS GUI
+
+```bash
+linuxcnc # Pick a simulation sample configuration
 ```
 
 ## References

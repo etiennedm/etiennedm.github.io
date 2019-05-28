@@ -4,7 +4,7 @@ title: "Miscellaneous embedded software vocabulary and notions"
 date: 2019-05-21 12:00:00 +0200
 categories: software microcontroller 
 ---
-Here are some concepts that I had to learn about when working with microcontrollers at work
+Here are some concepts or tools that I had to learn about when working with microcontrollers.
 Some of the explanations might be specific to Nordic's nRF family and NXP's Kinetis family of
 microcontrollers since these are what our products are using.
 

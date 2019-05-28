@@ -14,3 +14,10 @@ enables individual bits to be toggled atomically using a single LDR instruction
 without performing a read-modify-write sequence.
 
 See [arm's documentation](http://infocenter.arm.com/help/topic/com.arm.doc.100166_0001_00_en/ric1417773736773.html) about bit-banding on the Cortex-M series.
+
+## SVDConv.exe
+A data format and associated tool to describe memory mapped registers of peripherals in Arm
+Cortex-M based microcontrollers. The tool allows silicon vendors to generate header files
+to be used by software developers.
+
+See [CMSIS documentation](http://www.keil.com/pack/doc/CMSIS/SVD/html/index.html).

@@ -21,3 +21,27 @@ Cortex-M based microcontrollers. The tool allows silicon vendors to generate hea
 to be used by software developers.
 
 See [CMSIS documentation](http://www.keil.com/pack/doc/CMSIS/SVD/html/index.html).
+
+## NAND Flash vs NOR Flash
+At the core of flash memory are floating gate transistors, i.e. the gate is electrically
+isolated with a control gate deposited above the floating gate. The control gate is only
+capacitively coupled with the floating gate. Since the the floating gate is surrounded
+by highly resistive material, the charge contained in it remains unchanged for long
+periods of time without a power supply. The amount of charge stored can be modified using [Fowler-Nordheim
+tunneling](https://en.wikipedia.org/wiki/Field_electron_emission#Fowler%E2%80%93Nordheim_tunneling) or [hot-carrier injection](https://en.wikipedia.org/wiki/Hot-carrier_injection).
+
+When the floating gate is charged, this charge screens the electric field from the control gate, increasing the threshold voltage of the cell (V<sub>T1</sub>). This means that a higher voltage (V<sub>T1</sub>) needs to be applied to the control gate to make the channel conduct. The presence of a logical 0 or 1 is sensed by determining whether there is current flowing through the transistor (between the source and the drain) when a voltage V s.t. V<sub>T1</sub> < V < V<sub>T2</sub> is applied on the control gate. 
+
+|Feature                      |NOR         |NAND        |
+|-----------------------------|------------|------------|
+|Random access                |Yes         |No          |
+|Cell size                    |Larger      |Smaller     |
+|Write speed                  |Slower      |Faster      |
+|Random Read speed            |Faster      |Slower      |
+|Erase speed                  |Much Slower |Faster      |
+|Storage capacity             |Lower       |Higher      |
+|Error Correcting Code        |Not needed  |Yes         |
+|Endurance (erases per block) |100,000s    |10,000s     |
+
+See [Floating-gate MOSFET](https://en.wikipedia.org/wiki/Floating-gate_MOSFET) on Wikipedia.
+See [Flash 101](https://www.embedded.com/design/prototyping-and-development/4460910/Flash-101--NAND-Flash-vs-NOR-Flash) on www.embedded.com.

@@ -58,4 +58,4 @@ See [GCC Cross-Compiler](https://wiki.osdev.org/GCC_Cross-Compiler) on OSDev wik
 
 ## Phase Locked Loop
 
-Aka. PLL, is usually used to generate clocks of higher frequencies from another clock or oscillator. See this lecture from MIT for a nice introduction: https://www.youtube.com/watch?v=PsUPRyatjxw.
+Aka. PLL, is usually used to generate clocks of higher frequencies from another clock or oscillator. See this lecture from MIT for a nice introduction: [https://www.youtube.com/watch?v=PsUPRyatjxw](https://www.youtube.com/watch?v=PsUPRyatjxw).

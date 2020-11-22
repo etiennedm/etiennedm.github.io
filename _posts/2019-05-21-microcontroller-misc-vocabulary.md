@@ -2,7 +2,7 @@
 layout: post
 title: "Miscellaneous embedded software vocabulary and notions"
 date: 2019-05-21 12:00:00 +0200
-categories: software microcontroller 
+categories: software microcontroller
 ---
 Here are some concepts or tools that I had to learn about when working with microcontrollers.
 Some of the explanations might be specific to Nordic's nRF family and NXP's Kinetis family of
@@ -30,7 +30,7 @@ by highly resistive material, the charge contained in it remains unchanged for l
 periods of time without a power supply. The amount of charge stored can be modified using [Fowler-Nordheim
 tunneling](https://en.wikipedia.org/wiki/Field_electron_emission#Fowler%E2%80%93Nordheim_tunneling) or [hot-carrier injection](https://en.wikipedia.org/wiki/Hot-carrier_injection).
 
-When the floating gate is charged, this charge screens the electric field from the control gate, increasing the threshold voltage of the cell (V<sub>T1</sub>). This means that a higher voltage (V<sub>T1</sub>) needs to be applied to the control gate to make the channel conduct. The presence of a logical 0 or 1 is sensed by determining whether there is current flowing through the transistor (between the source and the drain) when a voltage V s.t. V<sub>T1</sub> < V < V<sub>T2</sub> is applied on the control gate. 
+When the floating gate is charged, this charge screens the electric field from the control gate, increasing the threshold voltage of the cell (V<sub>T1</sub>). This means that a higher voltage (V<sub>T1</sub>) needs to be applied to the control gate to make the channel conduct. The presence of a logical 0 or 1 is sensed by determining whether there is current flowing through the transistor (between the source and the drain) when a voltage V s.t. V<sub>T1</sub> < V < V<sub>T2</sub> is applied on the control gate.
 
 |Feature                      |NOR         |NAND        |
 |-----------------------------|------------|------------|
@@ -45,3 +45,17 @@ When the floating gate is charged, this charge screens the electric field from t
 
 See [Floating-gate MOSFET](https://en.wikipedia.org/wiki/Floating-gate_MOSFET) on Wikipedia.
 See [Flash 101](https://www.embedded.com/design/prototyping-and-development/4460910/Flash-101--NAND-Flash-vs-NOR-Flash) on www.embedded.com.
+
+## Toolchain
+A hairy topic if there is one... But also the foundation of everything else in (embedded) software development.
+
+See [How a toolchain is constructed](https://crosstool-ng.github.io/docs/toolchain-construction/) from crosstool-NG documentation.
+See [GCC Cross-Compiler](https://wiki.osdev.org/GCC_Cross-Compiler) on OSDev wiki.
+
+## ARM Cortex-M Exception Handling
+
+[https://interrupt.memfault.com/blog/arm-cortex-m-exceptions-and-nvic#pendsv-example](https://interrupt.memfault.com/blog/arm-cortex-m-exceptions-and-nvic#pendsv-example)
+
+## Phase Locked Loop
+
+Aka. PLL, is usually used to generate clocks of higher frequencies from another clock or oscillator. See this lecture from MIT for a nice introduction: https://www.youtube.com/watch?v=PsUPRyatjxw.
